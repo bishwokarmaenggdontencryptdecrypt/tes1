@@ -60,6 +60,7 @@
         letter-spacing: 1px;
         max-width: 600px;
         margin: 0 auto;
+        text-align: center;
     }
 
     /* Glassmorphism Form Container */
@@ -94,14 +95,46 @@
         text-align: center;
     }
 
+    /* Media Queries for Mobile */
     @media (max-width: 768px) {
-        .contact-form-container {
-            padding: 2rem;
-            width: 90%;
+        /* Adjust contact header text */
+        .contact-page-header h1 {
+            font-size: 2rem; /* Smaller title */
         }
 
+        .contact-page-header h6 {
+            font-size: 1.1rem; /* Smaller subtext */
+        }
+
+        /* Adjust form container */
+        .contact-form-container {
+            padding: 2rem; /* Reduced padding for mobile */
+            width: 90%; /* Full width with margin */
+            max-width: 100%; /* Ensure it doesn't overflow */
+            box-shadow: none; /* Remove shadow for smaller screens */
+            border-radius: 10px; /* Slightly smaller radius for mobile */
+        }
+
+        /* Adjust iframe size for mobile */
         #JotFormIFrame-250403180947454 {
-            height: 400px;
+            height: 500px; /* Keep the height for better readability */
+        }
+    }
+
+    /* For very small screens (extra mobile) */
+    @media (max-width: 480px) {
+        /* Adjust text size further */
+        .contact-page-header h1 {
+            font-size: 1.5rem; /* Even smaller title for very small screens */
+        }
+
+        .contact-page-header h6 {
+            font-size: 1rem; /* Smaller subtext */
+        }
+
+        /* Adjust iframe height */
+        #JotFormIFrame-250403180947454 {
+            height: 400px; /* Reduce iframe height for very small screens */
         }
     }
 </style>
