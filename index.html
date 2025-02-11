@@ -4,148 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login - Access Road Volume Calculations</title>
-    <style>
-        body {
-            margin: 0;
-            padding: 0;
-            font-family: 'Segoe UI', Arial, sans-serif;
-            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('img/carousel-1.jpg') no-repeat center center fixed;
-            background-size: cover;
-            min-height: 100vh;
-            position: relative;
-        }
-
-        @media (max-width: 768px) {
-            body {
-                background: url('img/carousel-1.jpg') no-repeat center center fixed;
-                background-size: cover;
-            }
-        }
-
-        .login-container {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background: rgba(255, 255, 255, 0.15);
-            backdrop-filter: blur(15px);
-            padding: 40px;
-            border-radius: 24px;
-            width: 100%;
-            max-width: 450px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            transition: all 0.3s ease;
-        }
-
-        .login-container:hover {
-            transform: translate(-50%, -51%);
-            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5);
-        }
-
-        h2 {
-            color: white;
-            text-align: center;
-            font-size: 2.4rem;
-            margin-bottom: 10px;
-            font-weight: 700;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-        }
-
-        .form-group {
-            margin-bottom: 25px;
-            position: relative;
-        }
-
-        .form-control {
-            border-radius: 15px;
-            padding: 15px;
-            background: rgba(255, 255, 255, 0.1);
-            border: 2px solid rgba(255, 255, 255, 0.2);
-            color: white;
-            font-size: 1.1rem;
-            transition: all 0.3s ease;
-        }
-
-        .form-control:focus {
-            background: rgba(255, 255, 255, 0.2);
-            border-color: rgba(255, 255, 255, 0.5);
-            box-shadow: 0 0 20px rgba(255, 255, 255, 0.15);
-            transform: translateY(-2px);
-        }
-
-        .btn-login {
-            background: linear-gradient(45deg, #2196F3, #00BCD4);
-            color: white;
-            width: 100%;
-            border-radius: 15px;
-            padding: 15px;
-            font-size: 1.2rem;
-            border: none;
-            margin-top: 15px;
-            transition: all 0.4s ease;
-            text-transform: uppercase;
-            font-weight: 600;
-            letter-spacing: 1.5px;
-        }
-
-        .btn-login:hover {
-            background: linear-gradient(45deg, #1976D2, #0097A7);
-            transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
-        }
-
-        /* Green checkmark animation */
-        .success-checkmark {
-            width: 80px;
-            height: 80px;
-            margin: 0 auto 20px;
-            border-radius: 50%;
-            background: #4CAF50;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transform: scale(0);
-            animation: scaleIn 0.5s ease forwards;
-        }
-
-        @keyframes scaleIn {
-            0% { transform: scale(0); }
-            80% { transform: scale(1.1); }
-            100% { transform: scale(1); }
-        }
-
-        .success-checkmark i {
-            font-size: 40px;
-            color: white;
-        }
-
-        .login-message {
-            padding: 15px;
-            border-radius: 12px;
-            margin-top: 20px;
-            text-align: center;
-            transition: all 0.3s ease;
-            animation: slideIn 0.5s ease;
-        }
-
-        @keyframes slideIn {
-            from { transform: translateY(-20px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
-        }
-
-        .success-message {
-            background: rgba(76, 175, 80, 0.2);
-            color: #4CAF50;
-            border: 1px solid rgba(76, 175, 80, 0.3);
-        }
-
-        .error-message {
-            background: rgba(244, 67, 54, 0.2);
-            color: #F44336;
-            border: 1px solid rgba(244, 67, 54, 0.3);
-        }
-
+   <style>
         body {
             text-align: center;
             font-family: Arial, sans-serif;
@@ -157,18 +16,43 @@
             color: white;
         }
         .container {
-            background: rgba(0, 0, 0, 0.5);
-            padding: 30px;
-            border-radius: 10px;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 40px;
+            border-radius: 15px;
             display: inline-block;
             margin-top: 100px;
         }
         .form-control, .btn {
             margin: 10px;
-            padding: 10px;
+            padding: 15px;
+            font-size: 16px;
+            border-radius: 5px;
+        }
+        .btn {
+            width: 100%;
         }
         #message {
-            color: red;
+            margin-top: 20px;
+            font-size: 18px;
+            font-weight: bold;
+            display: none;
+        }
+        .login-message {
+            padding: 20px;
+            border-radius: 10px;
+            font-size: 18px;
+            width: 60%;
+            margin: 0 auto;
+        }
+        .success-message {
+            background-color: #28a745;
+            color: white;
+            border: 1px solid #218838;
+        }
+        .error-message {
+            background-color: #dc3545;
+            color: white;
+            border: 1px solid #c82333;
         }
     </style>
 </head>
@@ -179,7 +63,7 @@
         <input type="text" id="username" class="form-control" placeholder="Username">
         <input type="password" id="password" class="form-control" placeholder="Password">
         <button onclick="login()" class="btn btn-primary">Login</button>
-        <p id="message"></p>
+        <p id="message"></p> <!-- Success/Error message will appear here -->
     </div>
 
     <script src="script.js"
