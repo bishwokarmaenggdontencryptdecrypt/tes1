@@ -1,5 +1,5 @@
 // Use your Cloudflare Worker URL here:
-const API_URL = "https://flat-voice-c146.sarthak-aganja12345.workers.dev";
+const API_URL = "https://young-poetry-0efa.sarthak-aganja12345.workers.dev";
 
 // Login function: sends credentials to the worker.
 async function login() {
@@ -53,4 +53,3 @@ function logout() {
   localStorage.removeItem("authToken");
   window.location.href = "login.html";
 }
-
