@@ -236,140 +236,146 @@
   </div>
 
   <script>
-     document.addEventListener("contextmenu", function(event) {
-      event.preventDefault();
-    });
-    
-    const API_URL = "https://flat-voice-c146.sarthak-aganja12345.workers.dev";
-
-    document.querySelectorAll('.form-control').forEach(input => {
-      input.addEventListener('focus', (e) => {
-        e.target.style.transform = 'scale(1.02)';
+    document.addEventListener("contextmenu", function(event) {
+        event.preventDefault();
       });
 
-      input.addEventListener('blur', (e) => {
-        e.target.style.transform = 'scale(1)';
-      });
+      const API_URL = "https://flat-voice-c146.sarthak-aganja12345.workers.dev";
 
-      input.addEventListener('input', (e) => {
-        e.target.style.transform = 'translateX(2px)';
-        setTimeout(() => {
-          e.target.style.transform = 'translateX(0)';
-        }, 100);
-      });
-    });
-
-    document.querySelector('.btn').addEventListener('mouseover', (e) => {
-      e.target.style.transform = 'translateY(-3px)';
-      e.target.style.boxShadow = '0 5px 15px rgba(0, 0, 0, 0.4)';
-    });
-
-    document.querySelector('.btn').addEventListener('mouseout', (e) => {
-      e.target.style.transform = 'translateY(0)';
-      e.target.style.boxShadow = 'none';
-    });
-
-    async function login() {
-      const username = document.getElementById("username").value;
-      const password = document.getElementById("password").value;
-      const button = document.querySelector('.btn');
-      
-      button.style.transform = 'scale(0.95)';
-      setTimeout(() => button.style.transform = 'scale(1)', 150);
-
-      try {
-        button.innerHTML = '<i class="spinner bi bi-arrow-clockwise"></i> Logging in...';
-        button.style.pointerEvents = 'none';
-
-        const response = await fetch(`${API_URL}/login`, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ username, password })
+      document.querySelectorAll('.form-control').forEach(input => {
+        input.addEventListener('focus', (e) => {
+          e.target.style.transform = 'scale(1.02)';
         });
-        
-        const result = await response.json();
-        
-        if (result.success) {
-          localStorage.setItem("authToken", result.token);
-          
-          const checkmark = document.getElementById("checkmark");
-          checkmark.style.display = "block";
 
-          const messageElement = document.getElementById("message");
-          messageElement.textContent = "Login Successful!";
-          messageElement.className = "login-message success-message";
-          messageElement.style.display = "block";
-          messageElement.style.opacity = 1;
+        input.addEventListener('blur', (e) => {
+          e.target.style.transform = 'scale(1)';
+        });
 
+        input.addEventListener('input', (e) => {
+          e.target.style.transform = 'translateX(2px)';
           setTimeout(() => {
+            e.target.style.transform = 'translateX(0)';
+          }, 100);
+        });
+      });
+
+      document.querySelector('.btn').addEventListener('mouseover', (e) => {
+        e.target.style.transform = 'translateY(-3px)';
+        e.target.style.boxShadow = '0 5px 15px rgba(0, 0, 0, 0.4)';
+      });
+
+      document.querySelector('.btn').addEventListener('mouseout', (e) => {
+        e.target.style.transform = 'translateY(0)';
+        e.target.style.boxShadow = 'none';
+      });
+
+      // Function to check authentication status
+      async function checkAuth() {
+        const token = localStorage.getItem("authToken");
+        if (!token) {
+          window.location.href = "login.html";
+          return;
+        }
+        try {
+          const response = await fetch(`${API_URL}/verify`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ token })
+          });
+          const result = await response.json();
+          if (result.success) {
+            // If token is valid, redirect to dashboard.html
             window.location.href = "dashboard.html";
-          }, 2000);
-        } else {
+          } else {
+            localStorage.removeItem("authToken");
+            window.location.href = "login.html";
+          }
+        } catch (error) {
+          localStorage.removeItem("authToken");
+          window.location.href = "login.html";
+        }
+      }
+
+      // Check auth when the page loads
+      document.addEventListener("DOMContentLoaded", checkAuth);
+
+      async function login() {
+        const username = document.getElementById("username").value;
+        const password = document.getElementById("password").value;
+        const button = document.querySelector('.btn');
+        
+        button.style.transform = 'scale(0.95)';
+        setTimeout(() => button.style.transform = 'scale(1)', 150);
+
+        try {
+          button.innerHTML = '<i class="spinner bi bi-arrow-clockwise"></i> Logging in...';
+          button.style.pointerEvents = 'none';
+
+          const response = await fetch(`${API_URL}/login`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ username, password })
+          });
+          
+          const result = await response.json();
+          
+          if (result.success) {
+            localStorage.setItem("authToken", result.token);
+            
+            const checkmark = document.getElementById("checkmark");
+            checkmark.style.display = "block";
+
+            const messageElement = document.getElementById("message");
+            messageElement.textContent = "Login Successful!";
+            messageElement.className = "login-message success-message";
+            messageElement.style.display = "block";
+            messageElement.style.opacity = 1;
+
+            setTimeout(() => {
+              window.location.href = "dashboard.html";
+            }, 2000);
+          } else {
+            button.innerHTML = 'Login';
+            button.style.pointerEvents = 'auto';
+            
+            const messageElement = document.getElementById("message");
+            messageElement.textContent = result.message || "Login failed.";
+            messageElement.className = "login-message error-message";
+            messageElement.style.display = "block";
+            messageElement.style.opacity = 1;
+
+            document.querySelectorAll('.form-control').forEach(input => {
+              input.style.animation = 'shake 0.5s ease';
+              setTimeout(() => {
+                input.style.animation = '';
+              }, 500);
+            });
+          }
+        } catch (error) {
           button.innerHTML = 'Login';
           button.style.pointerEvents = 'auto';
           
           const messageElement = document.getElementById("message");
-          messageElement.textContent = result.message || "Login failed.";
+          messageElement.textContent = "Error connecting to server.";
           messageElement.className = "login-message error-message";
           messageElement.style.display = "block";
           messageElement.style.opacity = 1;
-
-          document.querySelectorAll('.form-control').forEach(input => {
-            input.style.animation = 'shake 0.5s ease';
-            setTimeout(() => {
-              input.style.animation = '';
-            }, 500);
-          });
         }
-      } catch (error) {
-        button.innerHTML = 'Login';
-        button.style.pointerEvents = 'auto';
-        
-        const messageElement = document.getElementById("message");
-        messageElement.textContent = "Error connecting to server.";
-        messageElement.className = "login-message error-message";
-        messageElement.style.display = "block";
-        messageElement.style.opacity = 1;
       }
-    }
 
-    document.addEventListener('keypress', (e) => {
-      if (e.key === 'Enter') {
-        const button = document.querySelector('.btn');
-        button.style.transform = 'scale(0.95)';
-        setTimeout(() => button.style.transform = 'scale(1)', 150);
-        login();
-      }
-    });
-
-    // Authentication verification functions remain unchanged
-    async function checkAuth() {
-      const token = localStorage.getItem("authToken");
-      if (!token) {
-        window.location.href = "login.html";
-        return;
-      }
-      try {
-        const response = await fetch(`${API_URL}/verify`, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ token })
-        });
-        const result = await response.json();
-        if (!result.success) {
-          localStorage.removeItem("authToken");
-          window.location.href = "index.html";
+      document.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') {
+          const button = document.querySelector('.btn');
+          button.style.transform = 'scale(0.95)';
+          setTimeout(() => button.style.transform = 'scale(1)', 150);
+          login();
         }
-      } catch (error) {
+      });
+
+      function logout() {
         localStorage.removeItem("authToken");
-        window.location.href = "index.html";
+        window.location.href = "login.html";
       }
-    }
-
-    function logout() {
-      localStorage.removeItem("authToken");
-      window.location.href = "login.html";
-    }
   </script>
 </body>
 </html>
