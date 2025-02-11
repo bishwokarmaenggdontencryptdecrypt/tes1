@@ -15,7 +15,13 @@ async function login() {
     const result = await response.json();
     if (result.success) {
       localStorage.setItem("authToken", result.token);
-      window.location.href = "dashboard.html";
+      
+      document.getElementById("checkmark").style.display = "flex"; // Show green checkmark
+                    document.getElementById("message").textContent = "Login Successful!";
+                    document.getElementById("message").className = "login-message success-message"; // Show success message
+                    setTimeout(() => {
+                        window.location.href = "dashboard.html"; // Redirect after 3 seconds
+                    }, 3000);
     } else {
       document.getElementById("message").textContent = result.message || "Login failed.";
     }
