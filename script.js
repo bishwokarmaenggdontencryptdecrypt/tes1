@@ -57,36 +57,29 @@ async function login() {
         const result = await response.json();
         
         if (result.success) {
-            localStorage.setItem("authToken", result.token);
-            
-            // Enhanced success animations
-            const container = document.querySelector('.container');
-            container.style.animation = 'success-pulse 0.5s ease';
-            
-            document.getElementById("checkmark").style.display = "flex";
-            setTimeout(() => {
-                document.getElementById("checkmark").style.opacity = 1;
-                document.getElementById("checkmark").style.animation = 'bounce 0.5s ease';
-            }, 50);
+    localStorage.setItem("authToken", result.token);
+    
+    // Show checkmark
+    const checkmark = document.getElementById("checkmark");
+    checkmark.style.display = "flex";
+    setTimeout(() => {
+        checkmark.style.opacity = "1";
+    }, 50);
 
-            const messageElement = document.getElementById("message");
-            messageElement.textContent = "Login Successful!";
-            messageElement.className = "login-message success-message";
-            messageElement.style.display = "block";
-            messageElement.style.animation = 'slideIn 0.5s ease, fadeIn 0.5s ease';
-            setTimeout(() => {
-                messageElement.style.opacity = 1;
-            }, 50);
+    // Show success message
+    const messageElement = document.getElementById("message");
+    messageElement.textContent = "Login Successful!";
+    messageElement.className = "login-message success-message";
+    messageElement.style.display = "block";
+    setTimeout(() => {
+        messageElement.style.opacity = 1;
+    }, 50);
 
-            // Add smooth transition before redirect
-            setTimeout(() => {
-                document.body.style.opacity = '0';
-                document.body.style.transition = 'opacity 0.5s ease';
-                setTimeout(() => {
-                    window.location.href = "dashboard.html";
-                }, 500);
-            }, 2500);
-        } else {
+    // Redirect after delay
+    setTimeout(() => {
+        window.location.href = "dashboard.html";
+    }, 3000);
+} else {
             // Enhanced error animations
             button.innerHTML = 'Login';
             button.style.pointerEvents = 'auto';
