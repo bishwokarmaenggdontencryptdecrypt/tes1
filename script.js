@@ -1,5 +1,5 @@
 // Use your Cloudflare Worker URL here:
-const API_URL = "https://young-poetry-0efa.sarthak-aganja12345.workers.dev";
+const API_URL = "https://flat-voice-c146.sarthak-aganja12345.workers.dev";
 
 // Login function: sends credentials to the worker.
 async function login() {
@@ -15,7 +15,7 @@ async function login() {
     const result = await response.json();
     if (result.success) {
       localStorage.setItem("authToken", result.token);
-      window.location.href = "home.html";
+      window.location.href = "dashboard.html";
     } else {
       document.getElementById("message").textContent = result.message || "Login failed.";
     }
@@ -24,11 +24,11 @@ async function login() {
   }
 }
 
-// Check authentication: verifies the token before allowing access to the home.
+// Check authentication: verifies the token before allowing access to the dashboard.
 async function checkAuth() {
   const token = localStorage.getItem("authToken");
   if (!token) {
-    window.location.href = "login.html";
+    window.location.href = "index.html";
     return;
   }
   try {
@@ -49,4 +49,7 @@ async function checkAuth() {
 }
 
 // Logout function: clears the token and returns to the login page.
-
+function logout() {
+  localStorage.removeItem("authToken");
+  window.location.href = "index.html";
+}
