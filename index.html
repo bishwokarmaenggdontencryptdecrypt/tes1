@@ -15,7 +15,6 @@
             position: relative;
         }
 
-        /* No background blur for mobile devices */
         @media (max-width: 768px) {
             body {
                 background: url('img/carousel-1.jpg') no-repeat center center fixed;
@@ -53,27 +52,35 @@
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
         }
 
-        input, button {
-            margin: 10px;
-            padding: 10px;
-            width: 100%;
-            font-size: 1rem;
+        .form-group {
+            margin-bottom: 25px;
+            position: relative;
+        }
+
+        .form-control {
             border-radius: 15px;
+            padding: 15px;
             background: rgba(255, 255, 255, 0.1);
-            color: white;
             border: 2px solid rgba(255, 255, 255, 0.2);
+            color: white;
+            font-size: 1.1rem;
             transition: all 0.3s ease;
         }
 
-        input:focus, button:focus {
-            outline: none;
-            border-color: rgba(255, 255, 255, 0.5);
+        .form-control:focus {
             background: rgba(255, 255, 255, 0.2);
+            border-color: rgba(255, 255, 255, 0.5);
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.15);
+            transform: translateY(-2px);
         }
 
-        button {
+        .btn-login {
             background: linear-gradient(45deg, #2196F3, #00BCD4);
             color: white;
+            width: 100%;
+            border-radius: 15px;
+            padding: 15px;
+            font-size: 1.2rem;
             border: none;
             margin-top: 15px;
             transition: all 0.4s ease;
@@ -82,53 +89,61 @@
             letter-spacing: 1.5px;
         }
 
-        button:hover {
+        .btn-login:hover {
             background: linear-gradient(45deg, #1976D2, #0097A7);
             transform: translateY(-3px);
             box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
         }
 
-        .message {
-            color: red;
-            margin-top: 10px;
-            text-align: center;
-        }
-
-        /* Green check mark */
+        /* Green checkmark animation */
         .success-checkmark {
-            width: 40px;
-            height: 40px;
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 20px;
             border-radius: 50%;
-            background-color: #4CAF50;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            margin-left: 10px;
-            visibility: hidden;
-        }
-
-        .success-checkmark i {
-            color: white;
-            font-size: 20px;
-        }
-
-        /* Success message container */
-        .login-message {
-            color: #4CAF50;
-            font-size: 1.1rem;
-            margin-top: 10px;
-            text-align: center;
+            background: #4CAF50;
             display: flex;
             align-items: center;
             justify-content: center;
+            transform: scale(0);
+            animation: scaleIn 0.5s ease forwards;
         }
 
-        .login-message.success {
+        @keyframes scaleIn {
+            0% { transform: scale(0); }
+            80% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        .success-checkmark i {
+            font-size: 40px;
+            color: white;
+        }
+
+        .login-message {
+            padding: 15px;
+            border-radius: 12px;
+            margin-top: 20px;
+            text-align: center;
+            transition: all 0.3s ease;
+            animation: slideIn 0.5s ease;
+        }
+
+        @keyframes slideIn {
+            from { transform: translateY(-20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .success-message {
+            background: rgba(76, 175, 80, 0.2);
             color: #4CAF50;
+            border: 1px solid rgba(76, 175, 80, 0.3);
         }
 
-        .login-message.error {
+        .error-message {
+            background: rgba(244, 67, 54, 0.2);
             color: #F44336;
+            border: 1px solid rgba(244, 67, 54, 0.3);
         }
     </style>
 </head>
@@ -136,49 +151,21 @@
 
     <div class="login-container">
         <h2>Login</h2>
-        <input type="text" id="username" placeholder="Username">
-        <input type="password" id="password" placeholder="Password">
-        <button onclick="login()">Login</button>
-
-        <!-- Success or Error message -->
-        <p id="message" class="message"></p>
-
-        <!-- Green check mark icon -->
-        <div id="checkmark" class="success-checkmark">
+        <div class="form-group">
+            <input type="text" id="username" class="form-control" placeholder="Username">
+        </div>
+        <div class="form-group">
+            <input type="password" id="password" class="form-control" placeholder="Password">
+        </div>
+        <button class="btn-login" onclick="login()">Login</button>
+        <div id="message" class="login-message"></div>
+        <!-- Success checkmark div, initially hidden -->
+        <div id="checkmark" class="success-checkmark" style="display: none;">
             <i class="bi bi-check-lg"></i>
         </div>
-
-        <!-- Status message with success/error -->
-        <div id="loginMessage" class="login-message d-none"></div>
     </div>
 
-    <script>
-        function login() {
-            var username = document.getElementById('username').value;
-            var password = document.getElementById('password').value;
-            var messageElement = document.getElementById('message');
-            var checkmarkElement = document.getElementById('checkmark');
-            var loginMessageElement = document.getElementById('loginMessage');
-
-            if (username === '' || password === '') {
-                messageElement.textContent = 'Please fill in both fields.';
-                messageElement.style.color = 'red';
-                loginMessageElement.classList.add('error');
-                loginMessageElement.classList.remove('success');
-                loginMessageElement.textContent = 'Login failed! Try again.';
-                checkmarkElement.style.visibility = 'hidden';
-            } else {
-                // Simulate a successful login
-                messageElement.textContent = 'Login Successful!';
-                messageElement.style.color = 'green';
-                loginMessageElement.classList.add('success');
-                loginMessageElement.classList.remove('error');
-                loginMessageElement.textContent = 'Welcome, ' + username + '!';
-                checkmarkElement.style.visibility = 'visible';
-            }
-        }
+    <script src="script.js"
     </script>
-    <script src="script.js"></script>
-
 </body>
 </html>
