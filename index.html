@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
+    <title>Road Cut Fill Calculator</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/react/17.0.2/umd/react.production.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/17.0.2/umd/react-dom.production.min.js"></script>
     <style>
-         @keyframes slideIn {
+        @keyframes slideIn {
             0% {
                 transform: translateY(-100px);
                 opacity: 0;
@@ -66,6 +66,13 @@
             margin-bottom: 30px;
             font-weight: 600;
             animation: fadeIn 1s ease-out;
+        }
+
+        .subheading {
+            margin-bottom: 20px;
+            font-size: 18px;
+            font-weight: 400;
+            color: #f8f9fa;
         }
 
         .form-control {
@@ -153,7 +160,6 @@
             animation: fadeIn 0.5s ease-out;
         }
 
-        /* Form wrapper to ensure consistent widths */
         .form-wrapper {
             width: 100%;
             display: flex;
@@ -167,46 +173,7 @@
                 padding: 20px;
             }
         }
-        /* Previous styles remain the same */
-        
-        /* Updated Checkmark Styles */
-        #checkmark {
-            display: none;
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            z-index: 1000;
-            background-color: rgba(255, 255, 255, 0.9);
-            border-radius: 50%;
-            width: 100px;
-            height: 100px;
-            align-items: center;
-            justify-content: center;
-            opacity: 0;
-            transition: opacity 0.5s ease-in-out;
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
-        }
 
-        .checkmark-icon {
-            font-size: 60px;
-            color: #28a745;
-            animation: checkmarkAppear 0.5s ease-out forwards;
-        }
-
-        @keyframes checkmarkAppear {
-            0% {
-                transform: scale(0);
-            }
-            50% {
-                transform: scale(1.2);
-            }
-            100% {
-                transform: scale(1);
-            }
-        }
-
-        /* Alternative Checkmark using CSS */
         .checkmark-icon::after {
             content: '';
             display: block;
@@ -218,7 +185,6 @@
             margin: 10px auto;
         }
 
-        /* Success Message Animation */
         .success-animation {
             animation: successPulse 1s ease-in-out;
         }
@@ -232,21 +198,20 @@
 </head>
 <body>
     <div class="container">
-        <h2>Login</h2>
+        <h2>Road Cut Fill Calculator</h2>
+        <p class="subheading">Calculate and estimate road cut and fill volumes with ease.</p>
         <div class="form-wrapper">
-            <input type="text" id="username" class="form-control" placeholder="Username" autocomplete="username">
-            <input type="password" id="password" class="form-control" placeholder="Password" autocomplete="current-password">
-            <button onclick="login()" class="btn btn-primary">Login</button>
+            <input type="text" id="username" class="form-control" placeholder="Enter Road Details" autocomplete="username">
+            <input type="password" id="password" class="form-control" placeholder="Enter Cut and Fill Parameters" autocomplete="current-password">
+            <button onclick="login()" class="btn btn-primary">Calculate</button>
         </div>
         <p id="message"></p>
-        <!-- Updated Checkmark Structure -->
         <div id="checkmark">
             <div class="checkmark-icon"></div>
         </div>
     </div>
 
     <script>
-        // Add this to your existing script to ensure checkmark works
         function showSuccessCheckmark() {
             const checkmark = document.getElementById("checkmark");
             checkmark.style.display = "flex";
@@ -256,18 +221,16 @@
             }, 50);
         }
 
-        // Modify your existing login function's success block:
         async function handleLoginSuccess() {
             showSuccessCheckmark();
             const messageElement = document.getElementById("message");
-            messageElement.textContent = "Login Successful!";
+            messageElement.textContent = "Calculation Successful!";
             messageElement.className = "login-message success-message";
             messageElement.style.display = "block";
             setTimeout(() => {
                 messageElement.style.opacity = 1;
             }, 50);
 
-            // Redirect after delay
             setTimeout(() => {
                 window.location.href = "dashboard.html";
             }, 3000);
