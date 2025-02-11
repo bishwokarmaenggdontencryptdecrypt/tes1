@@ -270,72 +270,78 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
 
     <script>
-        async function getCaptchaToken() {
-            const token = await grecaptcha.execute('6LdHfdMqAAAAADRtQIoMx9IWiLR47lDQmAttulTC', { action: 'login' });
-            return token;
-        }
+       async function getCaptchaToken() {
+    // Executes reCAPTCHA to get a token.
+    const token = await grecaptcha.execute('6LdHfdMqAAAAADRtQIoMx9IWiLR47lDQmAttulTC', { action: 'login' });
+    return token;
+}
 
-        function showMessage(message, isError = false) {
-            const messageElement = document.getElementById('loginMessage');
-            messageElement.textContent = message;
-            messageElement.classList.remove('d-none', 'success-message', 'error-message');
-            messageElement.classList.add(isError ? 'error-message' : 'success-message');
-        }
+function showMessage(message, isError = false) {
+    const messageElement = document.getElementById('loginMessage');
+    messageElement.textContent = message;
+    messageElement.classList.remove('d-none', 'success-message', 'error-message');
+    messageElement.classList.add(isError ? 'error-message' : 'success-message');
+}
 
-        function showProcessingOverlay() {
-            const overlay = document.getElementById('processingOverlay');
-            overlay.style.display = 'flex';
-            overlay.classList.add('animate__animated', 'animate__fadeIn');
-        }
+function showProcessingOverlay() {
+    const overlay = document.getElementById('processingOverlay');
+    overlay.style.display = 'flex';
+    overlay.classList.add('animate__animated', 'animate__fadeIn');
+}
 
-        function setLoading(loading) {
-            const button = document.getElementById('loginButton');
-            const spinner = button.querySelector('.spinner-border');
-            const buttonText = button.querySelector('.button-text');
+function setLoading(loading) {
+    const button = document.getElementById('loginButton');
+    const spinner = button.querySelector('.spinner-border');
+    const buttonText = button.querySelector('.button-text');
 
-            button.disabled = loading;
-            if (loading) {
-                spinner.classList.remove('d-none');
-                buttonText.textContent = 'Processing...';
-            } else {
-                spinner.classList.add('d-none');
-                buttonText.textContent = 'Login';
-            }
-        }
+    button.disabled = loading;
+    if (loading) {
+        spinner.classList.remove('d-none');
+        buttonText.textContent = 'Processing...';
+    } else {
+        spinner.classList.add('d-none');
+        buttonText.textContent = 'Login';
+    }
+}
 
-        document.getElementById('loginForm').addEventListener('submit', async (event) => {
-            event.preventDefault();
-            const username = document.getElementById('username').value;
-            const password = document.getElementById('password').value;
+document.getElementById('loginForm').addEventListener('submit', async (event) => {
+    event.preventDefault();
+    
+    // Collect the username and password from the form.
+    const username = document.getElementById('username').value;
+    const password = document.getElementById('password').value;
 
-            setLoading(true);
-            try {
-                const captchaToken = await getCaptchaToken();
+    setLoading(true);
+    try {
+        // Retrieve the captcha token.
+        const captchaToken = await getCaptchaToken();
 
-                const response = await fetch("https://young-poetry-0efa.sarthak-aganja12345.workers.dev/", {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
-                    body: JSON.stringify({ username, password, captchaResponse: captchaToken })
-                });
-
-                const result = await response.json();
-
-                if (response.ok) {
-                    showProcessingOverlay();
-                    setTimeout(() => {
-                        window.location.href = "home.html";
-                    }, 2000);
-                } else {
-                    showMessage(result.message || 'Login failed. Please check your credentials.', true);
-                }
-            } catch (error) {
-                showMessage('Connection error. Please try again later.', true);
-            } finally {
-                setLoading(false);
-            }
+        // Send a POST request to the worker's /login endpoint.
+        const response = await fetch("https://young-poetry-0efa.sarthak-aganja12345.workers.dev/login", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ username, password, captchaResponse: captchaToken })
         });
+
+        const result = await response.json();
+
+        // Check the worker's returned result.
+        if (result.success) {
+            showProcessingOverlay();
+            setTimeout(() => {
+                window.location.href = "home.html";
+            }, 2000);
+        } else {
+            showMessage(result.message || 'Login failed. Please check your credentials.', true);
+        }
+    } catch (error) {
+        showMessage('Connection error. Please try again later.', true);
+    } finally {
+        setLoading(false);
+    }
+});
     </script>
 </body>
 </html>
