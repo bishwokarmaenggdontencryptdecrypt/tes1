@@ -273,7 +273,7 @@
       async function checkAuth() {
         const token = localStorage.getItem("authToken");
         if (!token) {
-          window.location.href = "login.html";
+          window.location.href = "index.html";
           return;
         }
         try {
@@ -288,11 +288,11 @@
             window.location.href = "dashboard.html";
           } else {
             localStorage.removeItem("authToken");
-            window.location.href = "login.html";
+            window.location.href = "index.html";
           }
         } catch (error) {
           localStorage.removeItem("authToken");
-          window.location.href = "login.html";
+          window.location.href = "index.html";
         }
       }
 
@@ -374,7 +374,7 @@
 
       function logout() {
         localStorage.removeItem("authToken");
-        window.location.href = "login.html";
+        window.location.href = "index.html";
       }
   </script>
 </body>
