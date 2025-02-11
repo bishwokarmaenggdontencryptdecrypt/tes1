@@ -15,7 +15,7 @@ async function login() {
     const result = await response.json();
     if (result.success) {
       localStorage.setItem("authToken", result.token);
-      window.location.href = "dashboard.html";
+      window.location.href = "home.html";
     } else {
       document.getElementById("message").textContent = result.message || "Login failed.";
     }
@@ -24,7 +24,7 @@ async function login() {
   }
 }
 
-// Check authentication: verifies the token before allowing access to the dashboard.
+// Check authentication: verifies the token before allowing access to the home.
 async function checkAuth() {
   const token = localStorage.getItem("authToken");
   if (!token) {
