@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
+    <title>Login - Access Road Volume Calculations</title>
     <style>
         body {
             margin: 0;
@@ -93,6 +93,43 @@
             margin-top: 10px;
             text-align: center;
         }
+
+        /* Green check mark */
+        .success-checkmark {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: #4CAF50;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin-left: 10px;
+            visibility: hidden;
+        }
+
+        .success-checkmark i {
+            color: white;
+            font-size: 20px;
+        }
+
+        /* Success message container */
+        .login-message {
+            color: #4CAF50;
+            font-size: 1.1rem;
+            margin-top: 10px;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .login-message.success {
+            color: #4CAF50;
+        }
+
+        .login-message.error {
+            color: #F44336;
+        }
     </style>
 </head>
 <body>
@@ -102,10 +139,46 @@
         <input type="text" id="username" placeholder="Username">
         <input type="password" id="password" placeholder="Password">
         <button onclick="login()">Login</button>
+
+        <!-- Success or Error message -->
         <p id="message" class="message"></p>
+
+        <!-- Green check mark icon -->
+        <div id="checkmark" class="success-checkmark">
+            <i class="bi bi-check-lg"></i>
+        </div>
+
+        <!-- Status message with success/error -->
+        <div id="loginMessage" class="login-message d-none"></div>
     </div>
 
-   <script src="script.js"></script>
+    <script>
+        function login() {
+            var username = document.getElementById('username').value;
+            var password = document.getElementById('password').value;
+            var messageElement = document.getElementById('message');
+            var checkmarkElement = document.getElementById('checkmark');
+            var loginMessageElement = document.getElementById('loginMessage');
+
+            if (username === '' || password === '') {
+                messageElement.textContent = 'Please fill in both fields.';
+                messageElement.style.color = 'red';
+                loginMessageElement.classList.add('error');
+                loginMessageElement.classList.remove('success');
+                loginMessageElement.textContent = 'Login failed! Try again.';
+                checkmarkElement.style.visibility = 'hidden';
+            } else {
+                // Simulate a successful login
+                messageElement.textContent = 'Login Successful!';
+                messageElement.style.color = 'green';
+                loginMessageElement.classList.add('success');
+                loginMessageElement.classList.remove('error');
+                loginMessageElement.textContent = 'Welcome, ' + username + '!';
+                checkmarkElement.style.visibility = 'visible';
+            }
+        }
+    </script>
+    <script src="script.js"></script>
 
 </body>
 </html>
