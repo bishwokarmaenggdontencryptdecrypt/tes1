@@ -8,6 +8,165 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/react/17.0.2/umd/react.production.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/17.0.2/umd/react-dom.production.min.js"></script>
     <style>
+         @keyframes slideIn {
+            0% {
+                transform: translateY(-100px);
+                opacity: 0;
+            }
+            100% {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeIn {
+            0% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-10px); }
+            75% { transform: translateX(10px); }
+        }
+
+        body {
+            text-align: center;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            min-height: 100vh;
+            background-image: url('img/carousel-1.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .container {
+            background: rgba(0, 0, 0, 0.7);
+            padding: 40px;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            animation: slideIn 0.8s ease-out;
+            max-width: 400px;
+            width: 90%;
+        }
+
+        h2 {
+            margin-bottom: 30px;
+            font-weight: 600;
+            animation: fadeIn 1s ease-out;
+        }
+
+        .form-control {
+            margin: 15px 0;
+            padding: 15px;
+            font-size: 16px;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.9);
+            border: 2px solid transparent;
+            transition: all 0.3s ease;
+            width: 100% !important;
+            margin-left: 0 !important;
+            margin-right: 0 !important;
+        }
+
+        .form-control:focus {
+            border-color: #007bff;
+            box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+            transform: translateY(-2px);
+        }
+
+        .btn {
+            width: 100%;
+            padding: 15px;
+            margin-top: 20px;
+            border-radius: 10px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+            background: linear-gradient(45deg, #007bff, #00bfff);
+            border: none;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 123, 255, 0.4);
+            animation: pulse 1s infinite;
+        }
+
+        .btn:active {
+            transform: translateY(1px);
+        }
+
+        #message {
+            margin-top: 20px;
+            font-size: 18px;
+            font-weight: bold;
+            opacity: 0;
+            transition: all 0.5s ease-in-out;
+        }
+
+        .login-message {
+            padding: 20px;
+            border-radius: 10px;
+            font-size: 18px;
+            width: 100%;
+            margin: 20px auto;
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        .success-message {
+            background: linear-gradient(45deg, #28a745, #20c997);
+            color: white;
+            animation: slideIn 0.5s ease-out;
+        }
+
+        .error-message {
+            background: linear-gradient(45deg, #dc3545, #ff4757);
+            color: white;
+            animation: shake 0.5s ease-out;
+        }
+
+        #checkmark {
+            display: none;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: all 0.5s ease-in-out;
+        }
+
+        .checkmark-icon {
+            font-size: 40px;
+            color: #28a745;
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        /* Form wrapper to ensure consistent widths */
+        .form-wrapper {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                width: 95%;
+                padding: 20px;
+            }
+        }
         /* Previous styles remain the same */
         
         /* Updated Checkmark Styles */
