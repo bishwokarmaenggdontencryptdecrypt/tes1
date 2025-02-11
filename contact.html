@@ -28,19 +28,32 @@
 
   <!-- Template Stylesheet -->
   <link href="css/style.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
+
   <style>
-    /* Enhanced Gradient Background with Overlay */
+    /* Enhanced Gradient Background with Blur Overlay */
     .contact-page-header {
-        background: 
-            url('img/carousel-1.jpg') no-repeat center center/cover;
-        padding: 100px 0 80px;
         position: relative;
+        min-height: 100vh;
+        padding: 2rem;
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        min-height: 70vh;
-        background-size: cover;
+        overflow: hidden;
+    }
+
+    .contact-page-header::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(45deg, rgba(0,0,0,0.7), rgba(0,0,0,0.3)),
+                    url('img/carousel-1.jpg') no-repeat center center/cover;
+        background-blend-mode: multiply;
+        z-index: -1;
     }
 
     /* Gradient Text Effect */
@@ -51,116 +64,238 @@
         color: transparent;
         font-weight: 800;
         letter-spacing: 2px;
-        text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        margin-bottom: 1rem;
     }
 
     .contact-page-header h6 {
-        color: #f8f9fa!important;
+        color: rgba(255,255,255,0.9) !important;
         font-weight: 300;
         letter-spacing: 1px;
         max-width: 600px;
-        margin: 0 auto;
+        margin: 0 auto 2rem;
         text-align: center;
     }
 
     /* Glassmorphism Form Container */
     .contact-form-container {
-        background: rgba(255, 255, 255, 0.2); /* Semi-transparent background */
-        backdrop-filter: blur(15px);
-        border-radius: 20px;
-        border: 1px solid rgba(255, 255, 255, 0.3); /* Light border */
-        padding: 3rem;
-        width: 80%;
-        max-width: 600px;
-        margin: 2rem auto;
-        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
-        transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-
-    .contact-form-container:hover {
-        transform: translateY(-5px) scale(1.02);
-    }
-
-    /* Embedded JotForm iframe */
-    #JotFormIFrame-250403180947454 {
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(12px) saturate(160%);
+        -webkit-backdrop-filter: blur(12px) saturate(160%);
+        border-radius: 16px;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        padding: 2.5rem;
         width: 100%;
-        height: 500px;
+        max-width: 600px;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    }
+
+    .contact-form-container input,
+    .contact-form-container textarea {
+        width: 100%;
+        padding: 1rem;
+        margin-bottom: 1.5rem;
+        border-radius: 8px;
+        border: 1px solid rgba(255,255,255,0.2);
+        background: rgba(255,255,255,0.05);
+        color: #fff;
+        font-size: 1rem;
+        transition: all 0.3s ease;
+    }
+
+    .contact-form-container input::placeholder,
+    .contact-form-container textarea::placeholder {
+        color: rgba(255,255,255,0.7);
+    }
+
+    .contact-form-container input:focus,
+    .contact-form-container textarea:focus {
+        background: rgba(255,255,255,0.1);
+        border-color: rgba(255,255,255,0.4);
+        outline: none;
+        box-shadow: 0 0 8px rgba(255,255,255,0.2);
+    }
+
+    /* .contact-form-container button {
+        width: 100%;
+        padding: 1rem;
         border: none;
-        border-radius: 15px;
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-    }
+        background: linear-gradient(135deg, #007bff, #0062cc);
+        color: white;
+        border-radius: 8px;
+        font-size: 1.1rem;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+    } */
 
-    /* Text Styling for the Contact Header */
-    .contact-page-header h1, .contact-page-header h6 {
-        text-align: center;
-    }
+    /* .contact-form-container button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 15px rgba(0,123,255,0.3);
+    } */
 
-    /* Media Queries for Mobile */
     @media (max-width: 768px) {
-        /* Adjust contact header text */
-        .contact-page-header h1 {
-            font-size: 2rem; /* Smaller title */
+        .contact-page-header {
+            padding: 2rem 1rem;
         }
-
-        .contact-page-header h6 {
-            font-size: 1.1rem; /* Smaller subtext */
-        }
-
-        /* Adjust form container */
+        
         .contact-form-container {
-            padding: 2rem; /* Reduced padding for mobile */
-            width: 90%; /* Full width with margin */
-            max-width: 100%; /* Ensure it doesn't overflow */
-            box-shadow: none; /* Remove shadow for smaller screens */
-            border-radius: 10px; /* Slightly smaller radius for mobile */
-        }
-
-        /* Adjust iframe size for mobile */
-        #JotFormIFrame-250403180947454 {
-            height: 500px; /* Keep the height for better readability */
-        }
-    }
-
-    /* For very small screens (extra mobile) */
-    @media (max-width: 480px) {
-        /* Adjust text size further */
-        .contact-page-header h1 {
-            font-size: 1.5rem; /* Even smaller title for very small screens */
-        }
-
-        .contact-page-header h6 {
-            font-size: 1rem; /* Smaller subtext */
-        }
-
-        /* Adjust iframe height */
-        #JotFormIFrame-250403180947454 {
-            height: 400px; /* Reduce iframe height for very small screens */
+            padding: 1.5rem;
+            border-radius: 12px;
         }
     }
 </style>
 
-<div class="container-fluid contact-page-header">
-    <h1 class="display-3 text-uppercase mb-4">Contact</h1>
-    <div class="d-inline-flex">
-        <h6 class="m-0">I'd Love to Hear From You</h6>
-    </div>
+<div class="contact-page-header">
+    <h1 class="display-3 text-uppercase mb-3">Contact Me</h1>
+    <h6 class="mb-4">I'd Love to Hear From You</h6>
 
     <div class="contact-form-container">
-        <!-- Embedded JotForm iframe with a smaller size -->
-        <iframe
-            id="JotFormIFrame-250403180947454"
-            title="General Inquiry Contact Form"
-            onload="window.parent.scrollTo(0,0)"
-            allowtransparency="true"
-            allow="geolocation; microphone; camera; fullscreen"
-            src="https://form.jotform.com/250403180947454"
-            scrolling="no"
-        >
-        </iframe>
-        <script src='https://cdn.jotfor.ms/s/umd/latest/for-form-embed-handler.js'></script>
-        <script>window.jotformEmbedHandler("iframe[id='JotFormIFrame-250403180947454']", "https://form.jotform.com/")</script>
+        <form id="contactForm">
+            <input type="text" name="name" placeholder="Your Name" required>
+            <input type="email" name="email" placeholder="Your Email" required>
+            <textarea name="message" placeholder="Your Message" rows="5" required></textarea>
+            <div class="row g-3 mb-4">
+                <div class="col-12 text-center">
+                    <button type="button" id="sendMessage" class="btn btn-primary">
+                        <i class="bi bi-send me-1"></i> Send Message
+                    </button>
+                    
+                </div>
+              </div>
+        </form>
     </div>
 </div>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  console.log("Script loaded successfully!");
+
+  const contactForm = document.getElementById("contactForm");
+  const sendMessageButton = document.getElementById("sendMessage");
+
+  if (!contactForm || !sendMessageButton) {
+    console.error("Error: Contact form or send button not found!");
+    return;
+  }
+
+  // Optional: Create a response message element if needed.
+  let responseMessage = document.getElementById("responseMessage");
+  if (!responseMessage) {
+    responseMessage = document.createElement("div");
+    responseMessage.id = "responseMessage";
+    responseMessage.style.marginTop = "1rem";
+    contactForm.appendChild(responseMessage);
+  }
+
+  // Check for an active cooldown stored in localStorage.
+  const storedCooldown = localStorage.getItem("cooldownEnd");
+  const cooldownEnd = storedCooldown ? parseInt(storedCooldown, 10) : 0;
+  if (cooldownEnd && Date.now() < cooldownEnd) {
+    disableButtonWithTimer(sendMessageButton, cooldownEnd - Date.now());
+  }
+
+  sendMessageButton.addEventListener("click", async (e) => {
+    // Prevent multiple clicks by checking if the button is disabled.
+    if (sendMessageButton.disabled) {
+      e.preventDefault();
+      return;
+    }
+    e.preventDefault();
+    console.log("Send button clicked!");
+
+    // Get form values.
+    const nameInput = contactForm.querySelector('input[name="name"]');
+    const emailInput = contactForm.querySelector('input[name="email"]');
+    const messageInput = contactForm.querySelector('textarea[name="message"]');
+
+    const name = nameInput.value.trim();
+    const email = emailInput.value.trim();
+    const message = messageInput.value.trim();
+
+    // Basic validation.
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!name || !email || !message) {
+      Swal.fire("Error", "Please fill in all fields.", "error");
+      return;
+    }
+    if (!emailRegex.test(email)) {
+      Swal.fire("Error", "Please enter a valid email address.", "error");
+      return;
+    }
+
+    // Show the sending modal.
+    Swal.fire({
+      title: "Sending...",
+      text: "Please wait while your message is being sent.",
+      icon: "info",
+      allowOutsideClick: false,
+      showConfirmButton: false,
+    });
+
+    // Set a 60-second cooldown: disable the button and store the cooldown end time.
+    const cooldownTime = 60 * 1000; // 60 seconds in milliseconds.
+    const newCooldownEnd = Date.now() + cooldownTime;
+    localStorage.setItem("cooldownEnd", newCooldownEnd);
+    disableButtonWithTimer(sendMessageButton, cooldownTime);
+
+    try {
+      const response = await fetch("https://twilight-bird-3a69.sarthak-aganja12345.workers.dev/", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          subject: "New Alert",
+          message: `Name: ${name}\nEmail: ${email}\nMessage: ${message}`,
+        }),
+      });
+
+      // Read the response as plain text.
+      const resultText = await response.text();
+
+      if (response.ok) {
+        Swal.fire("Success!", resultText, "success");
+        contactForm.reset();
+      } else {
+        Swal.fire("Error!", resultText, "error");
+      }
+    } catch (error) {
+      Swal.fire("Error", error.message, "error");
+    }
+  });
+});
+
+// Function to disable the button for the given cooldown period.
+function disableButtonWithTimer(button, timeLeft) {
+  button.disabled = true;
+  button.style.pointerEvents = "none"; // Ensure the button is unclickable.
+  updateTimerText(button, timeLeft);
+
+  const interval = setInterval(() => {
+    timeLeft -= 1000;
+    updateTimerText(button, timeLeft);
+
+    if (timeLeft <= 0) {
+      clearInterval(interval);
+      button.disabled = false;
+      button.style.pointerEvents = "auto";
+      button.textContent = "Send Message";
+      localStorage.removeItem("cooldownEnd");
+    }
+  }, 1000);
+}
+
+// Function to update the button text with the remaining cooldown time.
+function updateTimerText(button, timeLeft) {
+  const seconds = Math.ceil(timeLeft / 1000);
+  button.textContent = `Wait (${seconds}) seconds`;
+}
+
+</script>
 
 
 <script src="https://smtpjs.com/v3/smtp.js"></script>
@@ -179,9 +314,9 @@
 
   <!-- Main Script -->
   <script>
-    document.addEventListener("contextmenu", function(event) {
-      event.preventDefault();
-    });
+    // document.addEventListener("contextmenu", function(event) {
+    //   event.preventDefault();
+    // });
 </script>
 
   <!-- Back to Top -->
