@@ -5,19 +5,107 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
     <style>
-        body { text-align: center; font-family: Arial, sans-serif; margin-top: 50px; }
-        input, button { margin: 10px; padding: 10px; }
-        #message { color: red; }
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('img/carousel-1.jpg') no-repeat center center fixed;
+            background-size: cover;
+            min-height: 100vh;
+            position: relative;
+        }
+
+        /* No background blur for mobile devices */
+        @media (max-width: 768px) {
+            body {
+                background: url('img/carousel-1.jpg') no-repeat center center fixed;
+                background-size: cover;
+            }
+        }
+
+        .login-container {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(15px);
+            padding: 40px;
+            border-radius: 24px;
+            width: 100%;
+            max-width: 450px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .login-container:hover {
+            transform: translate(-50%, -51%);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5);
+        }
+
+        h2 {
+            color: white;
+            text-align: center;
+            font-size: 2.4rem;
+            margin-bottom: 10px;
+            font-weight: 700;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        input, button {
+            margin: 10px;
+            padding: 10px;
+            width: 100%;
+            font-size: 1rem;
+            border-radius: 15px;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        input:focus, button:focus {
+            outline: none;
+            border-color: rgba(255, 255, 255, 0.5);
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        button {
+            background: linear-gradient(45deg, #2196F3, #00BCD4);
+            color: white;
+            border: none;
+            margin-top: 15px;
+            transition: all 0.4s ease;
+            text-transform: uppercase;
+            font-weight: 600;
+            letter-spacing: 1.5px;
+        }
+
+        button:hover {
+            background: linear-gradient(45deg, #1976D2, #0097A7);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        .message {
+            color: red;
+            margin-top: 10px;
+            text-align: center;
+        }
     </style>
 </head>
 <body>
 
-    <h2>Login</h2>
-    <input type="text" id="username" placeholder="Username">
-    <input type="password" id="password" placeholder="Password">
-    <button onclick="login()">Login</button>
-    <p id="message"></p>
+    <div class="login-container">
+        <h2>Login</h2>
+        <input type="text" id="username" placeholder="Username">
+        <input type="password" id="password" placeholder="Password">
+        <button onclick="login()">Login</button>
+        <p id="message" class="message"></p>
+    </div>
 
-    <script src="script.js"></script>
+   <script src="script.js"></script>
+
 </body>
 </html>
