@@ -49,7 +49,4 @@ async function checkAuth() {
 }
 
 // Logout function: clears the token and returns to the login page.
-function logout() {
-  localStorage.removeItem("authToken");
-  window.location.href = "login.html";
-}
+
