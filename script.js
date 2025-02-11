@@ -28,7 +28,7 @@ async function login() {
 async function checkAuth() {
   const token = localStorage.getItem("authToken");
   if (!token) {
-    window.location.href = "index.html";
+    window.location.href = "login.html";
     return;
   }
   try {
@@ -51,5 +51,6 @@ async function checkAuth() {
 // Logout function: clears the token and returns to the login page.
 function logout() {
   localStorage.removeItem("authToken");
-  window.location.href = "index.html";
+  window.location.href = "login.html";
 }
+
