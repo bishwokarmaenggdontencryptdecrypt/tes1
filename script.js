@@ -153,10 +153,11 @@ style.textContent = `
 document.head.appendChild(style);
 
 // Rest of the original functions remain unchanged
+//change 9.49
 async function checkAuth() {
     const token = localStorage.getItem("authToken");
     if (!token) {
-        window.location.href = "login.html";
+        window.location.href = "index.html";
         return;
     }
     try {
